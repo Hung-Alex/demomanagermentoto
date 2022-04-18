@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dichvuchothuexeoto2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="HoaDon">
+    <Key>
+      <PropertyRef Name="mahoadon" />
+    </Key>
+    <Property Name="mahoadon" Type="char" MaxLength="6" Nullable="false" />
+    <Property Name="mahd" Type="char" MaxLength="6" />
+    <Property Name="makh" Type="char" MaxLength="6" />
+    <Property Name="tenkh" Type="nvarchar" MaxLength="30" />
+    <Property Name="maxe" Type="char" MaxLength="6" />
+    <Property Name="tenxe" Type="nvarchar" MaxLength="30" />
+    <Property Name="ngaylap" Type="datetime" Nullable="false" />
+    <Property Name="tongtien" Type="int" />
+  </EntityType>
+  <EntityType Name="hopdong">
+    <Key>
+      <PropertyRef Name="mahd" />
+    </Key>
+    <Property Name="mahd" Type="char" MaxLength="6" Nullable="false" />
+    <Property Name="maxe" Type="char" MaxLength="6" />
+    <Property Name="tenxe" Type="nvarchar" MaxLength="30" />
+    <Property Name="makh" Type="char" MaxLength="6" />
+    <Property Name="tenkh" Type="nvarchar" MaxLength="30" />
+    <Property Name="ngaythue" Type="datetime" Nullable="false" />
+    <Property Name="ngaytra" Type="datetime" Nullable="false" />
+    <Property Name="tienthue" Type="int" />
+  </EntityType>
+  <EntityType Name="khachhang">
+    <Key>
+      <PropertyRef Name="makh" />
+      <PropertyRef Name="tenkh" />
+    </Key>
+    <Property Name="makh" Type="char" MaxLength="6" Nullable="false" />
+    <Property Name="tenkh" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="cmnd" Type="char" MaxLength="9" Nullable="false" />
+    <Property Name="sodt" Type="char" MaxLength="11" Nullable="false" />
+    <Property Name="diachi" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Xe">
+    <Key>
+      <PropertyRef Name="maxe" />
+      <PropertyRef Name="tenxe" />
+    </Key>
+    <Property Name="maxe" Type="char" MaxLength="6" Nullable="false" />
+    <Property Name="tenxe" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="hangxe" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="biensoxe" Type="char" MaxLength="12" Nullable="false" />
+    <Property Name="sochongoi" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__HoaDon__2F10007B">
+    <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
+    <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachhang">
+        <PropertyRef Name="makh" />
+        <PropertyRef Name="tenkh" />
+      </Principal>
+      <Dependent Role="HoaDon">
+        <PropertyRef Name="makh" />
+        <PropertyRef Name="tenkh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HoaDon__300424B4">
+    <End Role="Xe" Type="Self.Xe" Multiplicity="0..1" />
+    <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Xe">
+        <PropertyRef Name="maxe" />
+        <PropertyRef Name="tenxe" />
+      </Principal>
+      <Dependent Role="HoaDon">
+        <PropertyRef Name="maxe" />
+        <PropertyRef Name="tenxe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HoaDon__mahd__2D27B809">
+    <End Role="hopdong" Type="Self.hopdong" Multiplicity="0..1" />
+    <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hopdong">
+        <PropertyRef Name="mahd" />
+      </Principal>
+      <Dependent Role="HoaDon">
+        <PropertyRef Name="mahd" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__hopdong__29572725">
+    <End Role="Xe" Type="Self.Xe" Multiplicity="0..1" />
+    <End Role="hopdong" Type="Self.hopdong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Xe">
+        <PropertyRef Name="maxe" />
+        <PropertyRef Name="tenxe" />
+      </Principal>
+      <Dependent Role="hopdong">
+        <PropertyRef Name="maxe" />
+        <PropertyRef Name="tenxe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__hopdong__2A4B4B5E">
+    <End Role="khachhang" Type="Self.khachhang" Multiplicity="0..1" />
+    <End Role="hopdong" Type="Self.hopdong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachhang">
+        <PropertyRef Name="makh" />
+        <PropertyRef Name="tenkh" />
+      </Principal>
+      <Dependent Role="hopdong">
+        <PropertyRef Name="makh" />
+        <PropertyRef Name="tenkh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dichvuchothuexeoto2ModelStoreContainer">
+    <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hopdong" EntityType="Self.hopdong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="khachhang" EntityType="Self.khachhang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Xe" EntityType="Self.Xe" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__HoaDon__2F10007B" Association="Self.FK__HoaDon__2F10007B">
+      <End Role="khachhang" EntitySet="khachhang" />
+      <End Role="HoaDon" EntitySet="HoaDon" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HoaDon__300424B4" Association="Self.FK__HoaDon__300424B4">
+      <End Role="Xe" EntitySet="Xe" />
+      <End Role="HoaDon" EntitySet="HoaDon" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HoaDon__mahd__2D27B809" Association="Self.FK__HoaDon__mahd__2D27B809">
+      <End Role="hopdong" EntitySet="hopdong" />
+      <End Role="HoaDon" EntitySet="HoaDon" />
+    </AssociationSet>
+    <AssociationSet Name="FK__hopdong__29572725" Association="Self.FK__hopdong__29572725">
+      <End Role="Xe" EntitySet="Xe" />
+      <End Role="hopdong" EntitySet="hopdong" />
+    </AssociationSet>
+    <AssociationSet Name="FK__hopdong__2A4B4B5E" Association="Self.FK__hopdong__2A4B4B5E">
+      <End Role="khachhang" EntitySet="khachhang" />
+      <End Role="hopdong" EntitySet="hopdong" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
